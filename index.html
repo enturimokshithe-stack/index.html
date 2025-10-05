@@ -5,34 +5,56 @@
   <title>Assignment 4 Combined Version</title>
 </head>
 <body>
-  <h1>Open console to see greeting output</h1>
+  <h1>Open console and view greetings below</h1>
+  <div id="greetings"></div>
 
   <script>
-    // helloSpeaker logic
-    var helloSpeaker = {
-      speak: function(name) {
-        console.log("Hello " + name);
+    // helloSpeaker module
+    const helloSpeaker = (function() {
+      const speakWord = "Hello";
+      function speak(name) {
+        const message = `${speakWord} ${name}`;
+        console.log(message);
+        displayMessage(message);
       }
-    };
+      return {
+        speak: speak
+      };
+    })();
 
-    // byeSpeaker logic
-    var byeSpeaker = {
-      speak: function(name) {
-        console.log("Good Bye " + name);
+    // byeSpeaker module
+    const byeSpeaker = (function() {
+      const speakWord = "Good Bye";
+      function speak(name) {
+        const message = `${speakWord} ${name}`;
+        console.log(message);
+        displayMessage(message);
       }
-    };
+      return {
+        speak: speak
+      };
+    })();
 
-    // main script logic
+    // Function to display messages on the page
+    function displayMessage(message) {
+      const container = document.getElementById("greetings");
+      const p = document.createElement("p");
+      p.textContent = message;
+      container.appendChild(p);
+    }
+
+    // Main logic wrapped in IIFE
     (function() {
-      var names = [
+      const names = [
         "Yaakov", "John", "Jen", "Jason",
         "Paul", "Frank", "Larry", "Paula",
         "Laura", "Jim"
       ];
 
-      for (var i = 0; i < names.length; i++) {
-        var name = names[i];
-        var firstLetter = name.charAt(0).toLowerCase();
+      for (let i = 0; i < names.length; i++) {
+        const name = names[i];
+        const firstLetter = name.charAt(0).toLowerCase();
+
         if (firstLetter === 'j') {
           byeSpeaker.speak(name);
         } else {
